@@ -26,6 +26,24 @@ npx expo start
 
 3. Scan the QR code with your phone's camera (iPhone) or with Expo Go (Android).
 
+## Get the Android APK
+
+Every push to `main` builds an installable APK on GitHub (workflow: `.github/workflows/android-apk.yml`).
+
+1. Open the repository's **Actions** tab and click the latest **Build Android APK** run.
+2. Under **Artifacts**, download `free-will-lab-apk` and unzip it.
+3. Copy the `.apk` to your Android phone and open it. Allow installs from your browser or file manager when asked.
+
+You can also start a build by hand: **Actions → Build Android APK → Run workflow**.
+
+The APK is signed with the default debug key, which is fine for installing on your own phones but not for the Play Store.
+
+To build the APK on your own computer instead (needs Android Studio's SDK and Java 17):
+
+```bash
+npx expo run:android --variant release
+```
+
 ## Build a standalone app
 
 The app runs in Expo Go as-is. To publish to the App Store or Google Play, build with EAS (needs a free Expo account):
