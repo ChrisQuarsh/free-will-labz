@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
@@ -34,8 +37,21 @@ jobs:
         working-directory: android
         run: ./gradlew assembleRelease --no-daemon
 
+      - name: Name the APK
+        run: cp android/app/build/outputs/apk/release/*.apk free-will-lab.apk
+
       - uses: actions/upload-artifact@v4
         with:
           name: free-will-lab-apk
-          path: android/app/build/outputs/apk/release/*.apk
+          path: free-will-lab.apk
           if-no-files-found: error
+
+      - name: Publish the APK as a release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete latest --cleanup-tag --yes -R "$GITHUB_REPOSITORY" || true
+          gh release create latest free-will-lab.apk -R "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Free Will Lab (latest Android APK)" \
+            --notes "Download free-will-lab.apk below and open it on your Android phone. Built from commit ${GITHUB_SHA::7}."

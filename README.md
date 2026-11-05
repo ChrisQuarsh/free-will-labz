@@ -30,9 +30,10 @@ npx expo start
 
 Every push to `main` builds an installable APK on GitHub (workflow: `.github/workflows/android-apk.yml`).
 
-1. Open the repository's **Actions** tab and click the latest **Build Android APK** run.
-2. Under **Artifacts**, download `free-will-lab-apk` and unzip it.
-3. Copy the `.apk` to your Android phone and open it. Allow installs from your browser or file manager when asked.
+1. Open the repository's **Releases** page and download `free-will-lab.apk` from the **latest** release. No sign-in is needed on a public repository.
+2. Open the file on your Android phone. Allow installs from your browser or file manager when asked.
+
+The same file is also kept as a build artifact under **Actions** (that download needs a GitHub sign-in).
 
 You can also start a build by hand: **Actions → Build Android APK → Run workflow**.
 
